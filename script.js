@@ -3,45 +3,46 @@ let computerPoint = 0
 
 
 const getComputerChoice = () => {
-    const num = () => {return Math.floor(Math.random() * 3)}
-    if (num() === 0) { return "rock"}
-    else if (num() === 1) { return "paper"}
-    else  { return "scissor"}
+    const value = Math.floor(Math.random() * 3)
+     return value
 }
 
-const getPlayerChoice = () => {
-    let value = prompt("rock,paper or scissor").toLowerCase() 
-    return value;}
+const singleRound = (e) => {
 
-const singleRound = () => {
-    let player=getPlayerChoice();
-    let computer=getComputerChoice();
-    console.log(`computer = ${computer}, player = ${player}`);
-    if (player == computer) {return "tie"}
+   const playerChoice = e.srcElement.className
+   const computerChoice = getComputerChoice()
+   
+    if (playerChoice == computerChoice) ;
+    else if ((playerChoice == 0 && computerChoice == 2) ||
+             (playerChoice == 1 && computerChoice == 0) ||
+             (playerChoice == 2 && computerChoice == 1)){
+                playerPoint ++
+            }
+    else if ((playerChoice == 2 && computerChoice == 0) ||
+            (playerChoice == 0 && computerChoice == 1) ||
+            (playerChoice == 1 && computerChoice == 2)) {
+                computerPoint ++
+            }
+            showResult()
 
-    else if ((player == "rock" && computer == "scissor" ) || 
-    (player == "scissor" && computer == "paper" ) ||
-    (player == "paper" && computer == "rock") ){
-        playerPoint ++
-        return "player won"
+        }
+        
+        
+        
+        
+function showResult() {
+    document.getElementsByClassName('resultP')[0].textContent = `your point = ${playerPoint}`
+    document.getElementsByClassName('resultC')[0].textContent = `computer point = ${computerPoint}`
+    if (playerPoint == 5) {
+        document.getElementsByClassName('result')[0].textContent = 'Yay you won'
     }
-
-    else if ( (player == "rock") && (computer == "paper") ||
-    (player == "paper" && computer == "scissor") ||
-    (player == "scissor" && computer == "rock")) {
-        computerPoint ++
-        return "computer won"
+    else if (computerPoint == 5) {
+        document.getElementsByClassName('result')[0].textContent = 'you died'
     }
-    
-}
-const game = () => {
-singleRound()
-singleRound()
-singleRound()
-singleRound()
-console.log(playerPoint)
-console.log(computerPoint)
 }
 
+        
 
+const button = document.querySelectorAll('div')
+button.forEach(value => value.addEventListener('click', singleRound ))
 
